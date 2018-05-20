@@ -26,7 +26,7 @@ namespace rm.Controllers
 
             return View();
         }
-        public ActionResult Treeh()
+        public ActionResult Login()
         {
             ViewBag.Message = "Your th .";
 
