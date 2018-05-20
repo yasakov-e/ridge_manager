@@ -28,7 +28,12 @@ namespace rm.Controllers
         }
         public ActionResult Login()
         {
-            ViewBag.Message = "Your th .";
+            ViewBag.Message = "login page";
+            return View();
+        }
+        public ActionResult GetUsers()
+        {
+            ViewBag.Message = "soska";
 
             return View();
         }

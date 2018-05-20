@@ -12,6 +12,12 @@ html {
 body {
   margin: 0;
 }
+
+.lr-labels {
+    margin-top: 10px;
+}
+
+
 article,
 aside,
 details,
