@@ -6,14 +6,14 @@ namespace rm.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class User
+    public class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
             Ridges = new HashSet<Ridge>();
         }
-
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int idUser { get; set; }

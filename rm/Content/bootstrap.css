@@ -16,7 +16,10 @@ body {
 .lr-labels {
     margin-top: 10px;
 }
-
+.title-middle {
+    width: 100px;
+    margin: 30px auto 20px auto;
+}
 
 article,
 aside,

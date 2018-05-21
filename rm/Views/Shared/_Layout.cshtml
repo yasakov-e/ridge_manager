@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewBag.Office = " ";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,14 +19,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Ridge Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse" style="float:right">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Log In", "Login", "Home")</li>
+                    <li>@Html.ActionLink((string)ViewBag.LogStatus, "Login", "Home")</li>
+                    <li>@Html.ActionLink("Office", "Office", "Home")</li>
                 </ul>
             </div>
         </div>

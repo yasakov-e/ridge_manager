@@ -2,15 +2,16 @@
 @{
     ViewBag.Title = "Login";
 }
-<h3>@ViewBag.Message</h3>
-<div style="width: 100px; margin: 30px auto 20px auto;">
+<div class="title-middle">
     <label style="font-size: 20px">Log In</label>
 </div>
-<form action="Login" method="post" style="width: 250px; margin: 0 auto">
+<form action="Login" method="post" style="width: 200px; margin: 0 auto">
     <label id="tt4" class="lr-labels">Логін:</label>
     <input name="loginTxt" style="width: 150px; display: inherit" type="text" id="loginTxt"  />
     <label class="lr-labels">Пароль:</label>
     <input name="passTxt" style="width: 150px; display: inherit" type="password" id="passTxt" />
     <input id="submBut" name="submBut" type="submit" value="Увійти"/>
-  
 </form>
+<div style="color: red; width: 290px; margin: 0 auto">
+    <h5>@ViewBag.Message</h5>
+</div>
