@@ -161,12 +161,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Action.cs" />
+    <Compile Include="Models\ActionJournal.cs" />
     <Compile Include="Models\database_firewall_rules.cs" />
     <Compile Include="Models\Fetuse.cs" />
     <Compile Include="Models\Ground.cs" />
+    <Compile Include="Models\Lapm.cs" />
     <Compile Include="Models\Ridge.cs" />
     <Compile Include="Models\RidgeContext.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Scenario.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -228,6 +232,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

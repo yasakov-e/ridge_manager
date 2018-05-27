@@ -24,11 +24,6 @@ namespace rm.Models
 
         public int? AcidReq { get; set; }
 
-        public int? HumReq { get; set; }
-
-        [StringLength(45)]
-        public string LumReq { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ridge> Ridges { get; set; }
     }

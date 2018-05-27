@@ -62,7 +62,6 @@ namespace rm.Controllers
             }
             ViewBag.LogStatus = CurrentAccount.LogStatus;
             ViewBag.Message = "Login doesn't match the password. Try again.";
-
             return View();
         }
         public ActionResult Office()

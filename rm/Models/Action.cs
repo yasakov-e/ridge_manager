@@ -6,38 +6,23 @@ namespace rm.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class User
+    [Table("Action")]
+    public partial class Action
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Action()
         {
-            Ridges = new HashSet<Ridge>();
+            ActionJournals = new HashSet<ActionJournal>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int idUser { get; set; }
+        public int idAction { get; set; }
 
         [StringLength(45)]
         public string Name { get; set; }
 
-        [StringLength(45)]
-        public string Surname { get; set; }
-
-        [StringLength(45)]
-        public string Mail { get; set; }
-
-        [StringLength(45)]
-        public string Login { get; set; }
-
-        [StringLength(45)]
-        public string Password { get; set; }
-
-        public int Role { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ridge> Ridges { get; set; }
-
-        public virtual Role Role1 { get; set; }
+        public virtual ICollection<ActionJournal> ActionJournals { get; set; }
     }
 }
