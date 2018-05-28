@@ -1,0 +1,80 @@
+﻿
+<style>
+    table {
+        width: 720px; /* Ширина таблицы */
+        border: 1px solid green; /* Рамка вокруг таблицы */
+        
+    }
+
+    td {
+        width: auto;
+        text-align: center; /* Выравниваем текст по центру ячейки */
+    }
+    th {
+        width: auto;
+        text-align: center; /* Выравниваем текст по центру ячейки */
+    }
+   
+</style>
+<div>
+    <h2>Ridges</h2>
+    <table align="left">
+        <tr>
+            <th>
+                Номер
+            </th>
+            <th>
+                Вирощується  
+            </th>
+            <th>
+                Вологість(%)  
+            </th>
+            <th>
+                Освітлення(лк) 
+            </th>
+            <th>
+                Температура(°С) 
+            </th>
+            <th>
+                Авто 
+            </th>
+            <th>
+                Лампа(спектр)
+            </th>
+            <th>
+                
+            </th>
+        </tr>
+
+        @foreach (var ridge in ViewBag.ridge_list)
+        {
+            <tr>
+                <td>
+                    @ridge.idRidge
+                </td>
+                <td>
+                    @ridge.Fetuse.Name
+                </td>
+                <td>
+                    @ridge.Humidity
+                </td>
+                <td>
+                    @ridge.Luminescence
+                </td>
+                <td>
+                    @ridge.Temperature
+                </td>
+                <td>
+                    @ridge.Auto
+                </td>
+                <td>
+                    
+                </td>
+                <td>
+                    @Html.ActionLink("деталізувати","Details",new {ridge.idRidge})
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

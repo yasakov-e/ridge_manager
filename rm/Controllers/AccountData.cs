@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using rm.Models;
 
 namespace rm.Controllers
 {
@@ -10,6 +11,7 @@ namespace rm.Controllers
         public static string Login { get; set; }
         public static string LogStatus { get; set; }
 
+        public static User user { get; set; }
         static CurrentAccount()
         {
             LogStatus = "Log in";

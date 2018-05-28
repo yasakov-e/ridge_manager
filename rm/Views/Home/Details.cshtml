@@ -1,0 +1,78 @@
+﻿
+@model rm.Models.Ridge
+<style>
+    table {
+        width: 300px; /* Ширина таблицы */
+        height:200px;
+        border: 1px solid green; /* Рамка вокруг таблицы */
+    }
+
+    td {
+        width: auto;
+        text-align: left; /* Выравниваем текст по центру ячейки */
+    }
+
+    th {
+        width: auto;
+        text-align: center; /* Выравниваем текст по центру ячейки */
+    }
+</style>
+
+<div style="margin-left: 30px;">
+    <h2>Теплиця № @Model.idRidge</h2>
+    <table align="left">
+        <tr>
+            <td>
+                Вирощуються
+            </td>
+            <td>
+                @Model.Fetuse.Name
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Вологість(%)
+            </td>
+            <td>
+                @Model.Humidity
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Освітлення(лк)
+            </td>
+            <td>
+                @Model.Luminescence
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Температура(°С)
+            </td>
+            <td>
+                @Model.Temperature
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Авто-догляд
+            </td>
+            <td>
+                @Model.Auto
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Працює за сценарієм
+            </td>
+            <td>
+                @Model.Scenario.Name
+            </td>
+        </tr>
+    </table>
+</div>
+
+

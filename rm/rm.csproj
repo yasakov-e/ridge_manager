@@ -216,6 +216,8 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\GetUsers.cshtml" />
     <Content Include="Views\Home\Office.cshtml" />
+    <Content Include="Views\Home\Ridges.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

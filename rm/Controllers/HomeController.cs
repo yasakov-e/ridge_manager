@@ -56,6 +56,7 @@ namespace rm.Controllers
                 {
                     CurrentAccount.Login = user.Login;
                     CurrentAccount.LogStatus = "Log out";
+                    CurrentAccount.user = user;
                     ViewBag.LogStatus = CurrentAccount.LogStatus;
                     return RedirectToAction("Office");
                 }
@@ -70,6 +71,7 @@ namespace rm.Controllers
             {
                 CurrentAccount.LogStatus = "Log out";
                 ViewBag.LogStatus = CurrentAccount.LogStatus;
+                
                 return View(ctx.Users.Where(i => i.Login == CurrentAccount.Login).First());
             }
             else
@@ -86,5 +88,38 @@ namespace rm.Controllers
 
             return View();
         }
+
+        public ActionResult Ridges()
+        {
+            if(CurrentAccount.Login == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+         
+            var ridge_list = ctx.Ridges.Where(i => i.Owner_idUser == CurrentAccount.user.idUser).ToList();
+            ViewBag.ridge_list = ridge_list;
+
+            /*foreach (var ridge in ridge_list)
+            {
+               ViewBag.lamp_list.Add(ctx.Lapms.Where(i => i.idRidge == ridge.idRidge));
+            }*/
+            
+            return View(ctx.Ridges.Where(i =>i.Owner_idUser == CurrentAccount.user.idUser).ToList());
+            
+        }
+        public ActionResult Details(int idRidge)
+        {
+            
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+            
+            ViewBag.id = idRidge;
+
+            return View(ctx.Ridges.Find(idRidge));
+        }
+
+        
     }
 }
