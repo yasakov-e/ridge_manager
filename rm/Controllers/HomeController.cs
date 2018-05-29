@@ -98,28 +98,25 @@ namespace rm.Controllers
 
 
             ViewBag.LogStatus = CurrentAccount.LogStatus;
-         
+            
             var ridge_list = ctx.Ridges.Where(i => i.Owner_idUser == CurrentAccount.user.idUser).ToList();
             ViewBag.ridge_list = ridge_list;
 
-            /*foreach (var ridge in ridge_list)
-            {
-               ViewBag.lamp_list.Add(ctx.Lapms.Where(i => i.idRidge == ridge.idRidge));
-            }*/
-            
-            return View(ctx.Ridges.Where(i =>i.Owner_idUser == CurrentAccount.user.idUser).ToList());
-            
+            var lamps = new List<Lapm>();
+            foreach (var item in ridge_list)
+                lamps.Add(item.Lapms.Where(i => i.Toggle == 1).First());
+
+            ViewBag.lamps = lamps;
+
+            return View();
         }
         public ActionResult Details(int idRidge)
         {
-            
             ViewBag.LogStatus = CurrentAccount.LogStatus;
             
             ViewBag.id = idRidge;
 
             return View(ctx.Ridges.Find(idRidge));
         }
-
-        
     }
 }
