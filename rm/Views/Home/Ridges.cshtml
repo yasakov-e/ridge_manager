@@ -1,18 +1,20 @@
 ﻿
 <style>
     table {
-        width: 720px; /* Ширина таблицы */
-        border: 1px solid green; /* Рамка вокруг таблицы */
-        
+        width: 720px;
     }
 
     td {
         width: auto;
-        text-align: center; /* Выравниваем текст по центру ячейки */
+        text-align: center;
+        padding: 7px;
+        border: 2px solid black;
     }
     th {
         width: auto;
-        text-align: center; /* Выравниваем текст по центру ячейки */
+        text-align: center;
+        padding: 7px;
+        border: 2px solid black;
     }
    
 </style>
@@ -46,32 +48,32 @@
             </th>
         </tr>
 
-        @foreach (var ridge in ViewBag.ridge_list)
+        @for (var i = 0; i < ViewBag.ridge_list.Count; i++)
         {
             <tr>
                 <td>
-                    @ridge.idRidge
+                    @ViewBag.ridge_list[i].idRidge
                 </td>
                 <td>
-                    @ridge.Fetuse.Name
+                    @ViewBag.ridge_list[i].Fetuse.Name
                 </td>
                 <td>
-                    @ridge.Humidity
+                    @ViewBag.ridge_list[i].Humidity
                 </td>
                 <td>
-                    @ridge.Luminescence
+                    @ViewBag.ridge_list[i].Luminescence
                 </td>
                 <td>
-                    @ridge.Temperature
+                    @ViewBag.ridge_list[i].Temperature
                 </td>
                 <td>
-                    @ridge.Auto
+                    @ViewBag.ridge_list[i].Auto
                 </td>
                 <td>
-                    
+                    @ViewBag.lamps[i].Spectre
                 </td>
                 <td>
-                    @Html.ActionLink("деталізувати","Details",new {ridge.idRidge})
+                    @Html.ActionLink("деталізувати","Details", new { ViewBag.ridge_list[i].idRidge})
                 </td>
             </tr>
         }
