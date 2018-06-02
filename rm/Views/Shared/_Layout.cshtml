@@ -6,13 +6,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Ridge Management</title>
+    <title>@ViewBag.Title Ridge Management</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:darkgreen">
+        <div class="container" >
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -24,7 +24,7 @@
             <div class="navbar-collapse collapse" style="float:right">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Мої сценарії", "MyScenarios", "Home")</li>
                     <li>@Html.ActionLink("Мої теплиці", "Ridges", "Home")</li>
                     <li>@Html.ActionLink((string)ViewBag.LogStatus, "Login", "Home")</li>
                     <li>@Html.ActionLink("Особистий кабінет", "Office", "Home")</li>

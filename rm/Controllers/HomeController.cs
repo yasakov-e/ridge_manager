@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using System.Web;
 using System.Web.Mvc;
 using rm.Models;
@@ -16,8 +17,12 @@ namespace rm.Controllers
             ViewBag.message = "nothing";
             return View();
         }
-        public ActionResult About()
+        public ActionResult MyScenarios()
         {
+            if (CurrentAccount.Login == null)
+            {
+                return RedirectToAction("Login");
+            }
             ViewBag.LogStatus = CurrentAccount.LogStatus;
             ViewBag.Message = "Your application description page.";
 
@@ -81,13 +86,6 @@ namespace rm.Controllers
             }
         }
 
-        public ActionResult GetUsers()
-        {
-            ViewBag.LogStatus = CurrentAccount.LogStatus;
-            ViewBag.Message = "soska";
-
-            return View();
-        }
 
         public ActionResult Ridges()
         {
@@ -106,27 +104,34 @@ namespace rm.Controllers
             foreach (var item in ridge_list)
                 lamps.Add(item.Lapms.Where(i => i.Toggle == 1).First());
 
+           
             ViewBag.lamps = lamps;
 
             return View();
         }
        
-        public ActionResult Details(int idRidge)
+       
+        public ActionResult Details(int idRidge, string msg)
         {
             ViewBag.LogStatus = CurrentAccount.LogStatus;
 
             var detalized_ridge = ctx.Ridges.Find(idRidge);
             var lamps = detalized_ridge.Lapms;
-            
+
             ViewBag.Scenario = detalized_ridge.Scenario;
             ViewBag.lamps = detalized_ridge.Lapms;
             ViewBag.scenarios = ctx.Scenarios;
+            ViewBag.actions = ctx.Actions;
+
+            var action_journal = detalized_ridge.ActionJournals;
 
             ViewBag.active_lamp = lamps.Where(i => i.Toggle == 1).First();
+            ViewBag.actionJournal = action_journal;
+            ViewBag.message = msg;
 
             return View(detalized_ridge);
         }
-       [HttpPost] public ActionResult Change_lamp(int new_lamp)
+        [HttpPost] public ActionResult Change_lamp(int new_lamp)
         {
             ViewBag.LogStatus = CurrentAccount.LogStatus;
 
@@ -139,7 +144,7 @@ namespace rm.Controllers
 
             ctx.SaveChanges();
 
-            return RedirectToAction("Details", new { idRidge = newLamp.Ridge.idRidge });
+            return RedirectToAction("Details", new { idRidge = newLamp.Ridge.idRidge, msg = "" });
         }
 
         [HttpPost]
@@ -153,8 +158,44 @@ namespace rm.Controllers
 
             ctx.SaveChanges();
 
-            return RedirectToAction("Details", new { idRidge = ridge.idRidge });
+            return RedirectToAction("Details", new { idRidge = ridge.idRidge, msg = "" });
         }
 
+        [HttpPost]
+        public ActionResult AddToJournal(int action_id, int ridge_id)
+        {
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+            var message = "";
+            var new_record = new ActionJournal();
+            var current_ridge = ctx.Ridges.Find(ridge_id);
+            var current_scenario = current_ridge.Scenario;
+
+            if(action_id == 1)
+            {
+                if (current_scenario.ReqHum - current_ridge.Humidity > 0)
+                {
+                    current_ridge.Humidity += 5;
+                    message = "Полив здійснено успішно";
+                }
+                   
+                else
+                {
+                    message = "Необхідна вологість в межах норми!";
+                    return RedirectToAction("Details", new { idRidge = ridge_id ,msg = message});
+                }
+            }
+
+            new_record.idRecord = ctx.ActionJournals.OrderByDescending(i=>i.idRecord).First().idRecord + 1;
+            new_record.idRidge = ridge_id;
+            new_record.idAction = action_id;
+            new_record.Date = DateTime.Now;
+            new_record.Humidity = current_ridge.Humidity;
+            new_record.Luminescence = current_ridge.Luminescence;
+            new_record.Temperature = current_ridge.Temperature;
+
+            ctx.ActionJournals.Add(new_record);
+            ctx.SaveChanges();
+            return RedirectToAction("Details", new { idRidge = ridge_id, msg = message });
+        }
     }
 }

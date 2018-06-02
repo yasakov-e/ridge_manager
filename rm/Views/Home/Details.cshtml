@@ -12,67 +12,134 @@
         padding: 7px;
         border: 2px solid black;
     }
+    #journal_table {
+        width: 600px;
+        height: 100px;
+    }
+    th {
+        width: auto;
+        text-align: center;
+        padding: 7px;
+        border: 2px solid black;
+    }
 </style>
 
 <body>
     <div style="float: left">
-        <h2>Теплиця</h2>
-        <table>
-            <tr>
-                <td>
-                    Вирощуються
-                </td>
-                <td>
-                    @Model.Fetuse.Name
-                </td>
-            </tr>
+    <h2>Теплиця</h2>
+    <table>
+        <tr>
+            <td>
+                Вирощуються
+            </td>
+            <td>
+                @Model.Fetuse.Name
+            </td>
+        </tr>
 
-            <tr>
-                <td>
-                    Вологість(%)
-                </td>
-                <td>
-                    @Model.Humidity
-                </td>
-            </tr>
+        <tr>
+            <td>
+                Вологість(%)
+            </td>
+            <td>
+                @Model.Humidity
+            </td>
+        </tr>
 
-            <tr>
-                <td>
-                    Освітлення(лк)
-                </td>
-                <td>
-                    @Model.Luminescence
-                </td>
-            </tr>
+        <tr>
+            <td>
+                Освітлення(лк)
+            </td>
+            <td>
+                @Model.Luminescence
+            </td>
+        </tr>
 
-            <tr>
-                <td>
-                    Температура(°С)
-                </td>
-                <td>
-                    @Model.Temperature
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Авто-догляд
-                </td>
-                <td>
-                    @Model.Auto
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Працює за сценарієм
-                </td>
-                <td>
-                    @Model.Scenario.Name
-                </td>
-              
-            </tr>
-        </table>
+        <tr>
+            <td>
+                Температура(°С)
+            </td>
+            <td>
+                @Model.Temperature
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Авто-догляд
+            </td>
+            <td>
+                @Model.Auto
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Працює за сценарієм
+            </td>
+            <td>
+                @Model.Scenario.Name
+            </td>
+
+        </tr>
+    </table>
        
-        
+       
+        <form style="margin-top: 30px" action="AddToJournal" method="post">
+            <span style="margin: 10px">Виконати:</span><select name="action_id">
+                @foreach (var action in ViewBag.actions)
+            {
+                    <option value="@action.idAction">@action.Name</option>
+                }
+            </select>
+            <input style="margin-left: 30px" type="submit" value="Виконати">
+            <input name="ridge_id" value="@Model.idRidge" style="display:none"><br />
+            <span style="margin-top:50px;">@ViewBag.message</span>
+        </form>
+    <h2 style="margin-top:30px">Журнал дій:</h2>
+    <table id ="journal_table">
+        <tr>
+            <th>
+                Номер запису
+            </th>
+            <th>
+                Дія
+            </th>
+            <th>
+                Дата
+            </th>
+            <th>
+                Вологість(%)
+            </th>
+            <th>
+                Освітлення(лк)
+            </th>
+            <th>
+                Температура(°С)
+            </th>
+        </tr>
+        @foreach (var record in ViewBag.actionJournal)
+        {
+            <tr>
+                <td>
+                    @record.idRecord
+                </td>
+                <td>
+                    @record.Action.Name
+                </td>
+                <td>
+                    @record.Date
+                </td>
+                <td>
+                    @record.Humidity
+                </td>
+                <td>
+                    @record.Luminescence
+                </td>
+                <td>
+                    @record.Temperature
+                </td>
+           </tr>
+                }
+        </table>
     </div>
 
     <div style="float: right">
@@ -138,7 +205,7 @@
                 }
             </select>
             <input style="margin-left: 30px" type="submit" value="Змінити">
-            <input name="curr_ridge" value="@Model.idRidge" style="visibility:hidden">
+            <input name="curr_ridge" value="@Model.idRidge" style="display:none">
         </form>
         <h2>Використовується лампа №@ViewBag.active_lamp.idLamp</h2>
         <table>
