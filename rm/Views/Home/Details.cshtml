@@ -1,5 +1,5 @@
-﻿
-@model rm.Models.Ridge
+﻿@model rm.Models.Ridge
+<html>
 <style>
     table {
         width: 300px;
@@ -12,64 +12,172 @@
         padding: 7px;
         border: 2px solid black;
     }
-
 </style>
 
-<div style="margin-left: 30px;">
-    <h2>Теплиця № @Model.idRidge</h2>
-    <table align="left">
-        <tr>
-            <td>
-                Вирощуються
-            </td>
-            <td>
-                @Model.Fetuse.Name
-            </td>
-        </tr>
+<body>
+    <div style="float: left">
+        <h2>Теплиця</h2>
+        <table>
+            <tr>
+                <td>
+                    Вирощуються
+                </td>
+                <td>
+                    @Model.Fetuse.Name
+                </td>
+            </tr>
 
-        <tr>
-            <td>
-                Вологість(%)
-            </td>
-            <td>
-                @Model.Humidity
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    Вологість(%)
+                </td>
+                <td>
+                    @Model.Humidity
+                </td>
+            </tr>
 
-        <tr>
-            <td>
-                Освітлення(лк)
-            </td>
-            <td>
-                @Model.Luminescence
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    Освітлення(лк)
+                </td>
+                <td>
+                    @Model.Luminescence
+                </td>
+            </tr>
 
-        <tr>
-            <td>
-                Температура(°С)
-            </td>
-            <td>
-                @Model.Temperature
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Авто-догляд
-            </td>
-            <td>
-                @Model.Auto
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Працює за сценарієм
-            </td>
-            <td>
-                @Model.Scenario.Name
-            </td>
-        </tr>
-    </table>
-</div>
+            <tr>
+                <td>
+                    Температура(°С)
+                </td>
+                <td>
+                    @Model.Temperature
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Авто-догляд
+                </td>
+                <td>
+                    @Model.Auto
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Працює за сценарієм
+                </td>
+                <td>
+                    @Model.Scenario.Name
+                </td>
+              
+            </tr>
+        </table>
+       
+        
+    </div>
 
+    <div style="float: right">
+        <h2>Сценарій № @ViewBag.Scenario.idScenario</h2>
+        <table>
+            <tr>
+                <td>
+                    Назва
+                </td>
+                <td>
+                    @ViewBag.Scenario.Name
+                </td>
+            </tr>
 
+            <tr>
+                <td>
+                    Необхідна вологість(%)
+                </td>
+                <td>
+                    @ViewBag.Scenario.ReqHum
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Необхідне освітлення(лк)
+                </td>
+                <td>
+                    @ViewBag.Scenario.ReqLum
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Необхідна температура(°С)
+                </td>
+                <td>
+                    @ViewBag.Scenario.Temperature
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Вмикати світло
+                </td>
+                <td>
+                    @ViewBag.Scenario.LightOnTime
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Вимикати світло
+                </td>
+                <td>
+                    @ViewBag.Scenario.LightOffTime
+                </td>
+            </tr>
+        </table>
+        <form style="margin-top: 30px" action="Change_scenario" method="post">
+            <span style="margin: 10px">Змінити сценарій</span><select name="new_scenario">
+                @foreach (var scenario in ViewBag.scenarios)
+            {
+                    <option value="@scenario.idScenario">@scenario.Name</option>
+                }
+            </select>
+            <input style="margin-left: 30px" type="submit" value="Змінити">
+            <input name="curr_ridge" value="@Model.idRidge" style="visibility:hidden">
+        </form>
+        <h2>Використовується лампа №@ViewBag.active_lamp.idLamp</h2>
+        <table>
+            <tr>
+                <td>
+                    Назва
+                </td>
+                <td>
+                    @ViewBag.active_lamp.Name
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Спектр
+                </td>
+                <td>
+                    @ViewBag.active_lamp.Spectre
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Світлова віддача (лм/Вт)
+                </td>
+                <td>
+                    @ViewBag.active_lamp.Efficacy
+                </td>
+            </tr>
+        </table>
+        <form style="margin-top: 30px" action="Change_lamp" method="post">
+            <span style="margin: 10px">Змінити лампу(спектр)</span><select name="new_lamp">
+                @foreach (var lamp in ViewBag.lamps)
+            {
+                    <option value="@lamp.idLamp" id="new_lamp_id">@lamp.Spectre</option>
+                }
+            </select>
+            <input style="margin-left: 60px" type="submit" value="Змінити">
+        </form>
+    </div>
+</body>
+</html>

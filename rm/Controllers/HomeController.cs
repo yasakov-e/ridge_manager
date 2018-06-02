@@ -13,7 +13,7 @@ namespace rm.Controllers
         public ActionResult Index()
         {
             ViewBag.LogStatus = CurrentAccount.LogStatus;
-
+            ViewBag.message = "nothing";
             return View();
         }
         public ActionResult About()
@@ -110,13 +110,51 @@ namespace rm.Controllers
 
             return View();
         }
+       
         public ActionResult Details(int idRidge)
         {
             ViewBag.LogStatus = CurrentAccount.LogStatus;
-            
-            ViewBag.id = idRidge;
 
-            return View(ctx.Ridges.Find(idRidge));
+            var detalized_ridge = ctx.Ridges.Find(idRidge);
+            var lamps = detalized_ridge.Lapms;
+            
+            ViewBag.Scenario = detalized_ridge.Scenario;
+            ViewBag.lamps = detalized_ridge.Lapms;
+            ViewBag.scenarios = ctx.Scenarios;
+
+            ViewBag.active_lamp = lamps.Where(i => i.Toggle == 1).First();
+
+            return View(detalized_ridge);
         }
+       [HttpPost] public ActionResult Change_lamp(int new_lamp)
+        {
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+
+            var newLamp = ctx.Lapms.Find(new_lamp);
+            var ridge = newLamp.Ridge;
+
+            foreach (var lamp in ridge.Lapms)
+                if (lamp.Toggle == 1) lamp.Toggle = 0;
+            newLamp.Toggle = 1;
+
+            ctx.SaveChanges();
+
+            return RedirectToAction("Details", new { idRidge = newLamp.Ridge.idRidge });
+        }
+
+        [HttpPost]
+        public ActionResult Change_scenario(int new_scenario, int curr_ridge)
+        {
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+
+            var ridge = ctx.Ridges.Find(curr_ridge);
+
+            ridge.idScenario = new_scenario;
+
+            ctx.SaveChanges();
+
+            return RedirectToAction("Details", new { idRidge = ridge.idRidge });
+        }
+
     }
 }
