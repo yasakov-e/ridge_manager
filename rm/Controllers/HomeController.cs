@@ -162,6 +162,31 @@ namespace rm.Controllers
             return RedirectToAction("Register", new {msg = "Аккаунт " + login + " зареєстровано успішно!" });
         }
 
+        public ActionResult CreateScenario(string msg)
+        {
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+            ViewBag.message = msg;
+
+            return View();
+        }
+        [HttpPost]public ActionResult CreateScenario(Scenario newScenario)
+        {
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+
+            newScenario.idScenario = ctx.Scenarios.OrderByDescending(i => i.idScenario).First().idScenario + 1;
+            newScenario.User_creator = CurrentAccount.user.idUser;
+
+            if(ModelState.IsValid)
+            {
+                ctx.Scenarios.Add(newScenario);
+                ctx.SaveChanges();
+
+                return RedirectToAction("MyScenarios");
+            }
+
+            return View();
+        }
+
         public ActionResult Office()
         {
             if (CurrentAccount.Login != null)
@@ -177,7 +202,6 @@ namespace rm.Controllers
                 return RedirectToAction("Login");
             }
         }
-
 
         public ActionResult Ridges()
         {

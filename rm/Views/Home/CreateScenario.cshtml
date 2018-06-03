@@ -1,0 +1,87 @@
+﻿@model rm.Models.Scenario
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateScenario</title>
+</head>
+<body>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>Scenario</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+           
+    
+            <div class="form-group">
+                <label>Назва сценарію</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Правило вологості</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ReqHum, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ReqHum, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label>Правило освітлення</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ReqLum, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ReqLum, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Правило для температури</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Temperature, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Temperature, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label>Час увімкнення лампи</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LightOnTime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LightOnTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Час вимкнення лампи</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LightOffTime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LightOffTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "MyScenarios")
+    </div>
+</body>
+</html>

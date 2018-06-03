@@ -221,6 +221,7 @@
     <Content Include="Views\Home\AddToJournal.cshtml" />
     <Content Include="Views\Home\DetalizeScenario.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\CreateScenario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
