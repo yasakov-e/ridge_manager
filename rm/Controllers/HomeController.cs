@@ -26,7 +26,54 @@ namespace rm.Controllers
             ViewBag.LogStatus = CurrentAccount.LogStatus;
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            var users = ctx.Users;
+            var scenarios = ctx.Scenarios;
+
+            ViewBag.users = users;
+            ViewBag.current_user = CurrentAccount.user;
+
+            return View(scenarios);
+        }
+        public ActionResult DetalizeScenario(int idScenario)
+        {
+            if (CurrentAccount.Login == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var scenario = ctx.Scenarios.Find(idScenario);
+
+            if (CurrentAccount.user.idUser != scenario.User_creator)
+                return RedirectToAction("MyScenarios");
+
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+            ViewBag.Message = "Your application description page.";
+
+            return View(scenario);
+        }
+
+        [HttpPost] public ActionResult RedactScenario(int idScenario,string name, int req_hum, int req_lum, int temp, TimeSpan lamp_on, TimeSpan lamp_off)
+        {
+            if (CurrentAccount.Login == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var scenario = ctx.Scenarios.Find(idScenario);
+
+            if (CurrentAccount.user.idUser != scenario.User_creator)
+                return RedirectToAction("MyScenarios");
+
+            scenario.Name = name;
+            scenario.ReqHum = req_hum;
+            scenario.ReqLum = req_lum;
+            scenario.Temperature = temp;
+            scenario.LightOffTime = lamp_off;
+            scenario.LightOnTime = lamp_on;
+
+            ctx.SaveChanges();
+
+            return RedirectToAction("DetalizeScenario", new { idScenario = idScenario });
         }
         public ActionResult Contact()
         {
@@ -70,6 +117,51 @@ namespace rm.Controllers
             ViewBag.Message = "Login doesn't match the password. Try again.";
             return View();
         }
+
+        public ActionResult Register(string msg)
+        {
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+            ViewBag.message = msg;
+
+            return View();
+        }
+
+        [HttpPost] public ActionResult Register(string name, string surname, string mail, string login, string password)
+        {
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+
+            var users = ctx.Users;
+            foreach(var user in users)
+            {
+                if(user.Login == login)
+                {
+                    ViewBag.message = "This login is already taken";
+                    return View();
+                }
+                if(user.Mail == mail)
+                {
+                    ViewBag.message = "This mail is already taken";
+                    return View();
+                }
+            }
+
+            var new_user = new User();
+
+            new_user.idUser = ctx.Users.OrderByDescending(i => i.idUser).First().idUser + 1;
+            new_user.Name = name;
+            new_user.Surname = surname;
+            new_user.Login = login;
+            new_user.Password = password;
+            new_user.Mail = mail;
+            new_user.Role = 2;
+
+            users.Add(new_user);
+
+            ctx.SaveChanges();
+
+            return RedirectToAction("Register", new {msg = "Аккаунт " + login + " зареєстровано успішно!" });
+        }
+
         public ActionResult Office()
         {
             if (CurrentAccount.Login != null)
@@ -110,7 +202,6 @@ namespace rm.Controllers
             return View();
         }
        
-       
         public ActionResult Details(int idRidge, string msg)
         {
             ViewBag.LogStatus = CurrentAccount.LogStatus;
@@ -147,8 +238,7 @@ namespace rm.Controllers
             return RedirectToAction("Details", new { idRidge = newLamp.Ridge.idRidge, msg = "" });
         }
 
-        [HttpPost]
-        public ActionResult Change_scenario(int new_scenario, int curr_ridge)
+        [HttpPost] public ActionResult Change_scenario(int new_scenario, int curr_ridge)
         {
             ViewBag.LogStatus = CurrentAccount.LogStatus;
 

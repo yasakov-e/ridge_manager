@@ -1,0 +1,31 @@
+﻿
+
+<body>
+
+    <div class="title-middle"> 
+        <h2>Реєстрація</h2>
+        <form action="Register" method="post" style="width: 200px; margin: 20px;">
+            <label class="lr-labels">Ім'я:</label>
+            <input name="name" style="width: 150px; display: inherit" />
+
+            <label class="lr-labels">Прізвище:</label>
+            <input name="surname" style="width: 150px; display: inherit" />
+
+            <label class="lr-labels">Електронна пошта:</label>
+            <input name="mail" style="width: 150px; display: inherit" />
+
+            <label class="lr-labels">Логін</label>
+            <input name="login" style="width: 150px; display: inherit" />
+
+            <label class="lr-labels">Пароль</label>
+            <input name="password" style="width: 150px; display: inherit " type="password"/>
+
+            <input style="margin-top:10px; float:" name="submBut" type="submit" value="Підтвердити" />
+
+        </form>
+    </div>
+    <div style="color: red; width: 290px; margin: auto">
+        <h5>@ViewBag.message</h5>
+
+    </div>
+</body>

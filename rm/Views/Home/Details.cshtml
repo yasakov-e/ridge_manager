@@ -68,7 +68,12 @@
                 Авто-догляд
             </td>
             <td>
-                @Model.Auto
+                @{ if (Model.Auto == 1)
+                    { ViewBag.auto = "Так"; }
+                    else
+                    { ViewBag.auto = "Ні"; }
+                }
+                @ViewBag.auto
             </td>
         </tr>
         <tr>

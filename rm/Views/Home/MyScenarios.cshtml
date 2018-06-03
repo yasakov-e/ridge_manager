@@ -1,7 +1,103 @@
-﻿@{
-    ViewBag.Title = "Мої сценарії";
+﻿@model  IEnumerable<rm.Models.Scenario>
+@{
+    ViewBag.Title = "Cценарії";
 }
+<style>
+    table {
+        width: 900px;
+        height: 150px;
+    }
+
+    td {
+        width: auto;
+        text-align: center;
+        padding: 7px;
+        border: 2px solid black;
+    }
+
+    th {
+        width: auto;
+        text-align: center;
+        padding: 7px;
+        border: 2px solid black;
+    }
+</style>
+
+
+
 <h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 
+<div style="float:left">
+    <table align="left">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Назва
+            </th>
+            <th>
+                Рівень вологості(%)
+            </th>
+            <th>
+                Рівень освітлення(лк)
+            </th>
+            <th>
+                Необхідна температура(°С)
+            </th>
+            <th>
+                Вмикати лампу
+            </th>
+            <th>
+                Вимикати лампу
+            </th>
+            <th>
+                Автор
+            </th>
+            <th>
+               
+            </th>
+        </tr>
+
+        @foreach(var scen in Model)
+        {
+            <tr>
+                <td>
+                    @scen.idScenario
+                </td>
+                <td>
+                    @scen.Name
+                </td>
+                <td>
+                    @scen.ReqHum
+                </td>
+                <td>
+                    @scen.ReqLum
+                </td>
+                <td>
+                    @scen.Temperature
+                </td>
+                <td>
+                    @scen.LightOnTime
+                </td>
+                <td>
+                    @scen.LightOffTime
+                </td>
+                <td>
+                    @ViewBag.users.Find(scen.User_creator).Name
+                </td>
+                <td>
+                    @{ if (ViewBag.current_user.idUser == scen.User_creator)
+                        {
+                            ViewBag.msg = "редагувати";
+                            @Html.ActionLink((string)ViewBag.msg, "DetalizeScenario", new { scen.idScenario })
+                        }
+                    }
+                    
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 <p></p>

@@ -1,0 +1,120 @@
+﻿@model rm.Models.Scenario
+
+
+    <title>Редагування сценарію</title>
+    <style>
+        table {
+            width: 300px;
+            height: 150px;
+        }
+
+        td {
+            width: auto;
+            text-align: center;
+            padding: 7px;
+            border: 2px solid black;
+        }
+
+        th {
+            width: auto;
+            text-align: center;
+            padding: 7px;
+            border: 2px solid black;
+        }
+    </style>
+
+<body>
+    <h2>Редагування сценарію</h2>
+    <div style="float:left"> 
+        <table>
+            <tr>
+                <td>
+                    ID
+                </td>
+                <td>
+                    @Model.idScenario
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Назва
+                </td>
+                <td>
+                    @Model.Name
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Рівень вологості(%)
+                </td>
+                <td>
+                    @Model.ReqHum
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Рівень освітлення(лк)
+                </td>
+                <td>
+                    @Model.ReqLum
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Необхідна температура(°С)
+                </td>
+                <td>
+                   @Model.Temperature
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Вмикати лампу
+                </td>
+                <td>
+                    @Model.LightOnTime
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Вимикати лампу
+                </td>
+                <td>
+                    @Model.LightOffTime
+                </td>
+            </tr>
+
+        </table>
+        <form action="RedactScenario" method="post" style="width: 200px; margin: 20px;">
+            <label class="lr-labels">Назва сценарію:</label>
+            <input name="name" value="@Model.Name" style="width: 150px; display: inherit" />
+
+            <label class="lr-labels">Рівень вологості(%)</label>
+            <input name="req_hum" value="@Model.ReqHum" style="width: 80px; display: inherit" />
+
+            <label class="lr-labels">Рівень освітлення(лк)</label>
+            <input name="req_lum" value="@Model.ReqLum" style="width: 80px; display: inherit" />
+
+            <label class="lr-labels">Необхідна температура(°С)</label>
+            <input name="temp" value="@Model.Temperature" style="width: 80px; display: inherit" />
+
+            <label class="lr-labels">Вмикати лампу(год)</label>
+            <input name="lamp_on" value="@Model.LightOnTime" style="width: 80px; display: inherit" />
+
+            <label class="lr-labels">Вимикати лампу(год)</label>
+            <input name="lamp_off" value="@Model.LightOffTime" style="width: 80px; display: inherit" />
+
+            <input name="idScenario" value="@Model.idScenario" style="display:none"><br />
+
+            <input style="margin-top:0px" name="submBut" type="submit" value="Підтвердити" />
+        </form>
+    </div>
+
+    <div style="float:right">
+        
+    </div>
+</body>

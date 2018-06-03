@@ -219,6 +219,8 @@
     <Content Include="Views\Home\Ridges.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\AddToJournal.cshtml" />
+    <Content Include="Views\Home\DetalizeScenario.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

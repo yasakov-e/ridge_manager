@@ -38,7 +38,7 @@
                 Температура(°С) 
             </th>
             <th>
-                Авто 
+                Авто-догляд
             </th>
             <th>
                 Лампа(спектр)
@@ -67,7 +67,12 @@
                     @ViewBag.ridge_list[i].Temperature
                 </td>
                 <td>
-                    @ViewBag.ridge_list[i].Auto
+                    @{ if(ViewBag.ridge_list[i].Auto == 1)
+                        { ViewBag.auto = "Так"; }
+                        else
+                        { ViewBag.auto = "Ні"; }
+                        }
+                    @ViewBag.auto
                 </td>
                 <td>
                     @ViewBag.lamps[i].Spectre
