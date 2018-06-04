@@ -222,6 +222,7 @@
     <Content Include="Views\Home\DetalizeScenario.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\CreateScenario.cshtml" />
+    <Content Include="Views\Home\CreateRidge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

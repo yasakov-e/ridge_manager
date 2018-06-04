@@ -187,6 +187,60 @@ namespace rm.Controllers
             return View();
         }
 
+        public ActionResult CreateRidge(string msg)
+        {
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+            ViewBag.message = msg;
+            if (CurrentAccount.Login == null)
+            {
+                return RedirectToAction("Login");
+            }
+            ViewBag.fetuses = ctx.Fetuses;
+            ViewBag.grounds = ctx.Grounds;
+            ViewBag.scenarios = ctx.Scenarios;
+
+            return View();
+        }
+        [HttpPost]public ActionResult CreateRidge(int fetuse, int ground, int scenario)
+        {
+            ViewBag.LogStatus = CurrentAccount.LogStatus;
+            Random rand = new Random();
+            var new_ridge = new Ridge();
+
+            new_ridge.idRidge = ctx.Ridges.OrderByDescending(i => i.idRidge).First().idRidge + 1;
+            new_ridge.Owner_idUser = CurrentAccount.user.idUser;
+            new_ridge.Auto = 1;
+            new_ridge.GroundType = ground;
+            new_ridge.FetuseType = fetuse;
+            new_ridge.idScenario = scenario;
+            new_ridge.Humidity = ctx.Grounds.Find(ground).HumDefault;
+            new_ridge.Luminescence = 20000 + rand.Next(6000);
+            new_ridge.Temperature = 21 + rand.Next(6);
+
+            var red_lamp = new Lapm();
+            red_lamp.idLamp = ctx.Lapms.OrderByDescending(i => i.idLamp).First().idLamp + 1;
+            red_lamp.Efficacy = 150;
+            red_lamp.Name = "Натрієва лампа високого тиску";
+            red_lamp.Spectre = "Червоний";
+            red_lamp.Toggle = 1;
+            red_lamp.idRidge = new_ridge.idRidge;
+
+            var blue_lamp = new Lapm();
+            blue_lamp.idLamp = ctx.Lapms.OrderByDescending(i => i.idLamp).First().idLamp + 2;
+            blue_lamp.Efficacy = 80;
+            blue_lamp.Name = "Люмінісцентна лампа";
+            blue_lamp.Spectre = "Синій";
+            blue_lamp.Toggle = 0;
+            blue_lamp.idRidge = new_ridge.idRidge;
+
+            ctx.Ridges.Add(new_ridge);
+            ctx.Lapms.Add(red_lamp);
+            ctx.Lapms.Add(blue_lamp);
+
+            ctx.SaveChanges();
+
+            return RedirectToAction("Ridges");
+        }
         public ActionResult Office()
         {
             if (CurrentAccount.Login != null)

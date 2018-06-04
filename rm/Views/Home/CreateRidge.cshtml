@@ -1,0 +1,57 @@
+﻿@model rm.Models.Ridge
+<style>
+    table {
+        width: 300px;
+        height: 150px;
+    }
+
+    td {
+        width: auto;
+        text-align: center;
+        padding: 7px;
+        border: 2px solid black;
+    }
+
+    th {
+        width: auto;
+        text-align: center;
+        padding: 7px;
+        border: 2px solid black;
+    }
+</style>
+
+<body>
+    <div>
+        <form action="CreateRidge" method="post" style="width: 200px; margin: 20px;">
+            <label class="lr-labels">Буде вирощуватись:</label>
+            <select name = "fetuse">
+            @foreach (var item in ViewBag.fetuses)
+            {
+                <option value="@item.idFetuse">@item.Name</option>
+            }
+            </select>
+
+            <label class="lr-labels">Тип грунту:</label><br />
+            <select name="ground">
+                @foreach (var item in ViewBag.grounds)
+            {
+                    <option value="@item.idGround">@item.Name</option>
+                }
+            </select>
+            <br />
+            <label class="lr-labels">Сценарій:</label>
+            <select name="scenario">
+                @foreach (var item in ViewBag.scenarios)
+            {
+                    <option value="@item.idScenario">@item.Name</option>
+                }
+            </select>
+
+            <input style="margin-top:15px" name="submBut" type="submit" value="Підтвердити" />
+        </form>
+    </div>
+
+    <div>
+        @Html.ActionLink("Назад до теплиць", "Ridges")
+    </div>
+</body>
